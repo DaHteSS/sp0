@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0f0d12;
+  --foreground: #f5f2fa;
+  --panel: #18151f;
+  --border: #353047;
+  --border-hover: #4d4660;
+  --muted: #9a93ad;
+  --subtle: #c8c2d6;
+  --accent: #e266f5;
+  --accent-soft: rgba(226, 102, 245, 0.16);
+}
+
+body {
+  color: var(--foreground);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(ellipse 110% 55% at 50% -30%, rgba(226, 102, 245, 0.11), transparent 52%),
+    radial-gradient(ellipse 65% 40% at 100% 100%, rgba(45, 212, 191, 0.07), transparent 48%);
+  background-attachment: fixed;
+}
