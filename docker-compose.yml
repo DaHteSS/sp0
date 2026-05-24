@@ -1,0 +1,16 @@
+services:
+  sp0:
+    build: .
+    ports:
+      - "127.0.0.1:${PORT:-1337}:3000"
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+      NODE_ENV: production
+      SSH_TERMINAL_MASTER_KEY: ${SSH_TERMINAL_MASTER_KEY:-}
+    volumes:
+      - sp0-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  sp0-data:

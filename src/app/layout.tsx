@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='ru' className={manrope.variable}>
+    <html lang='en' className={manrope.variable}>
       <body className={`${manrope.className} min-h-screen antialiased`}>
         <AppProviders>{children}</AppProviders>
       </body>

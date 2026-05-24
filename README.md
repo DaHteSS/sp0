@@ -18,6 +18,7 @@ A self-hosted web SSH workspace built with **Next.js** and **Node.js**. Manage s
 - [Scripts](#scripts)
 - [Data & security](#data--security)
 - [Production](#production)
+- [Docker](#docker)
 - [License](#license)
 
 ---
@@ -134,6 +135,40 @@ If you set `SSH_TERMINAL_MASTER_KEY`, it must decode to exactly 32 bytes or the 
 1. Set `SSH_TERMINAL_MASTER_KEY` and persist it securely (e.g. secrets manager or systemd environment file).
 2. Run `npm run build` then `npm run start`.
 3. Prefer binding to `127.0.0.1` and exposing only via HTTPS (e.g. Caddy, nginx) with authentication at the edge if the instance is exposed beyond your machine.
+
+---
+
+## Docker
+
+The image runs the same custom server as `npm run start`, binds to `0.0.0.0`, and persists SQLite and vault data in `/app/data`.
+
+### Quick start (Compose)
+
+```bash
+docker compose up -d --build
+```
+
+Open [http://localhost:1337](http://localhost:1337) (host port; override with `PORT` in `.env`).
+
+### Master key in Docker
+
+For production, set a stable encryption key (see [Configuration](#configuration)):
+
+```bash
+export SSH_TERMINAL_MASTER_KEY="$(openssl rand -base64 32)"
+docker compose up -d --build
+```
+
+Or add `SSH_TERMINAL_MASTER_KEY` to a `.env` file next to `docker-compose.yml` (see `.env.docker.example`).
+
+### Build image only
+
+```bash
+docker build -t sp0 .
+docker run -d --name sp0 -p 127.0.0.1:1337:3000 -v sp0-data:/app/data sp0
+```
+
+**Security:** SP0 has no built-in login. Do not expose the container port on untrusted networks without a reverse proxy and your own authentication.
 
 ---
 
